@@ -38,7 +38,13 @@ function getRandomData() {
 function getDatas(cnt) {
   let datas = [];
   for (let i = 0; i < cnt; i++) {
-    datas.push(getRandomData());
+    if (Math.random() < 0.2) {
+      let obj = getRandomData();
+      datas.push(obj);
+      datas.push(obj);
+    } else {
+      datas.push(getRandomData());
+    }
   }
   return datas;
 }
