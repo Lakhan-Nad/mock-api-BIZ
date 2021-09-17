@@ -8,6 +8,19 @@ const {
 } = require("./random");
 
 function getRandomData() {
+  let startTime, endTime;
+  startTime = randomTime();
+  endTime = randomTime(startTime, null, 10 * 60 * 60 * 1000);
+  if (endTime.getTime() - startTime.getTime() < 15 * 60 * 1000) {
+    endTime = new Date(startTime.getTime() + 15 * 60 * 1000);
+  }
+  while (startTime.getDate() !== endTime.getDate()) {
+    startTime = randomTime();
+    endTime = randomTime(startTime, null, 10 * 60 * 60 * 1000);
+    if (endTime.getTime() - startTime.getTime() < 15 * 60 * 1000) {
+      endTime = new Date(startTime.getTime() + 15 * 60 * 1000);
+    }
+  }
   let id = `Patient${randomNumber(1, 1000)}`;
   let patient = {
     firstName: randomFirstName(),
@@ -19,11 +32,6 @@ function getRandomData() {
     lastName: randomLastName(),
     department: randomDepartment(),
   };
-  let startTime = randomTime();
-  let endTime = randomTime(startTime, null, 10 * 60 * 60 * 1000);
-  if (endTime.getTime() - startTime.getTime() < 15 * 60 * 1000) {
-    endTime = new Date(startTime.getTime() + 15 * 60 * 1000);
-  }
   let status = randomBoolean() ? "active" : "inactive";
   return {
     id,
