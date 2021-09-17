@@ -2,7 +2,6 @@ const {
   randomFirstName,
   randomLastName,
   randomNumber,
-  randomDate,
   randomDepartment,
   randomTime,
   randomBoolean,
@@ -20,15 +19,16 @@ function getRandomData() {
     lastName: randomLastName(),
     department: randomDepartment(),
   };
-  let date = randomDate();
   let startTime = randomTime();
-  let endTime = randomTime(null, startTime);
+  let endTime = randomTime(startTime, null, 10 * 60 * 60 * 1000);
+  if (endTime.getTime() - startTime.getTime() < 15 * 60 * 1000) {
+    endTime = new Date(startTime.getTime() + 15 * 60 * 1000);
+  }
   let status = randomBoolean() ? "active" : "inactive";
   return {
     id,
     patient,
     doctor,
-    date,
     startTime,
     endTime,
     status,
@@ -43,7 +43,7 @@ function getDatas(cnt) {
   return datas;
 }
 
-const data = getDatas(100);
+const data = getDatas(10000);
 
 module.exports = {
   data,

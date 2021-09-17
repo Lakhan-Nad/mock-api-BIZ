@@ -311,11 +311,27 @@ function randomDate(after, before) {
   return new Date(random);
 }
 
-function randomTime(after, before) {
-  if (after === undefined || after === null)
-    after = new Date(1970, 0, 1, 0, 0, 0);
-  if (before === undefined || before === null)
-    before = new Date(1970, 0, 1, 23, 59, 59);
+function randomTime(after, before, duration) {
+  if (after === undefined || after === null) {
+    if (
+      before !== undefined &&
+      before !== null &&
+      duration !== undefined &&
+      duration !== null
+    )
+      after = new Date(before.getTime() - duration);
+    else after = new Date(new Date().getFullYear(), 0, 1);
+  }
+  if (before === undefined || before === null) {
+    if (
+      after !== undefined &&
+      after !== null &&
+      duration !== undefined &&
+      duration !== null
+    )
+      before = new Date(after.getTime() + duration);
+    else before = new Date();
+  }
   var min = after.getTime(),
     max = before.getTime();
   var random = Math.random() * (max - min) + min;
@@ -327,11 +343,11 @@ function randomBoolean() {
 }
 
 module.exports = {
+  randomNumber,
   randomFirstName,
   randomLastName,
-  randomNumber,
   randomDepartment,
   randomDate,
   randomTime,
-  randomBoolean
+  randomBoolean,
 };
