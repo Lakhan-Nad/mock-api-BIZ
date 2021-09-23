@@ -5,6 +5,8 @@ const {
   randomDepartment,
   randomTime,
   randomBoolean,
+  randomGender,
+  randomMobileNo,
 } = require("./random");
 
 function getRandomData() {
@@ -22,10 +24,15 @@ function getRandomData() {
     }
   }
   let id = `Patient${randomNumber(1, 1000)}`;
+  let firstName = randomFirstName();
+  let lastName = randomLastName();
   let patient = {
-    firstName: randomFirstName(),
-    lastName: randomLastName(),
+    firstName,
+    lastName,
     age: randomNumber(10, 80),
+    gender: randomGender(),
+    email: `${firstName.toLowerCase()}.${lastName.toLowerCase()}@mail.com`,
+    phone: randomMobileNo(),
   };
   let doctor = {
     firstName: randomFirstName(),

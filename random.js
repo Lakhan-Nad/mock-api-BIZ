@@ -342,6 +342,22 @@ function randomBoolean() {
   return Math.random() > 0.5;
 }
 
+function randomGender() {
+  let x = Math.random();
+  if (x < 1 / 3) return "male";
+  else if (x < 2 / 3) return "female";
+  return "other";
+}
+
+function randomMobileNo() {
+  let phone = "";
+  phone += Number(randomNumber(7, 9)).toString();
+  for (let x = 1; x <= 9; x++) {
+    phone += Number(randomNumber(0, 9)).toString();
+  }
+  return phone;
+}
+
 module.exports = {
   randomNumber,
   randomFirstName,
@@ -350,4 +366,6 @@ module.exports = {
   randomDate,
   randomTime,
   randomBoolean,
+  randomGender,
+  randomMobileNo,
 };
