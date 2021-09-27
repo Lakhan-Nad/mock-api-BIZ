@@ -23,6 +23,9 @@ function getRandomData() {
       endTime = new Date(startTime.getTime() + 10 * 60 * 1000);
     }
   }
+  if (Math.random() < 0.2) {
+    endTime = new Date(startTime.getTime() + 60 * 1000 * 60);
+  }
   let id = `Patient${randomNumber(1, 1000)}`;
   let firstName = randomFirstName();
   let lastName = randomLastName();
