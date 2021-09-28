@@ -19,7 +19,8 @@ app.post("/", (req, res) => {
     data.reverse();
   }
   res.json({
-    data: data.slice(startIndex, endIndex),
+    appointmentCount: endIndex - startIndex,
+    appointmentMessages: data.slice(startIndex, endIndex),
     hasMore: endIndex < maxCount,
     orderBy: orderBy === 1 ? "ASC" : "DESC",
     page,

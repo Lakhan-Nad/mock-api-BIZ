@@ -9,6 +9,10 @@ const {
   randomMobileNo,
 } = require("./random");
 
+function getEmail(firstName, lastName) {
+  return `${firstName.toLowerCase()}.${lastName.toLowerCase()}@gmail.com`;
+}
+
 function getRandomData() {
   let startTime, endTime;
   startTime = randomTime();
@@ -29,26 +33,30 @@ function getRandomData() {
   let id = `Patient${randomNumber(1, 1000)}`;
   let firstName = randomFirstName();
   let lastName = randomLastName();
-  let patient = {
+  let customer = {
     firstName,
     lastName,
-    age: randomNumber(10, 80),
     gender: randomGender(),
-    email: `${firstName.toLowerCase()}.${lastName.toLowerCase()}@mail.com`,
+    email: getEmail(firstName, lastName),
     phone: randomMobileNo(),
   };
-  let doctor = {
-    firstName: randomFirstName(),
-    lastName: randomLastName(),
+  let userFirstName = randomFirstName();
+  let userLastName = randomLastName();
+  let user = {
+    name: `${userFirstName} ${userLastName}`,
     department: randomDepartment(),
+    email: getEmail(userFirstName, userLastName),
   };
   let status = randomBoolean() ? "active" : "inactive";
   return {
     id,
-    patient,
-    doctor,
-    startTime,
-    endTime,
+    customer,
+    user,
+    slot: {
+      date: startTime.toISOString().split("T")[0],
+      startTime: startTime.toISOString().split("T")[1],
+      endTime: endTime.toISOString().split("T")[1],
+    },
     status,
   };
 }
@@ -67,9 +75,9 @@ function getDatas(cnt) {
   return datas;
 }
 
-const data = getDatas(10000);
+const maxCount = 100000;
 
 module.exports = {
-  data,
-  maxCount: data.length,
+  data: getDatas(maxCount),
+  maxCount,
 };
